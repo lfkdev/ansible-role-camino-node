@@ -1,0 +1,23 @@
+---
+github_api_url: "https://api.github.com/repos/chain4travel/caminogo/releases"
+camino_node_dir: "/opt/camino-node"
+camino_node_bin: "{{camino_node_dir}}/caminogo"
+camino_config_dir: "/etc/camino-node/configs"
+camino_config_file: "{{camino_config_dir}}/node.json"
+camino_node_http_host: "127.0.0.1"
+camino_node_network_id: "columbus"
+camino_version: "" # if not set 'latest' release will be used
+camino_user: "root"
+camino_group: "root"
+
+camin_admin_api_secret: "" # settings this to anything will enable the admin endpoint, otherwise disabled
+
+# if set, role will include custom-keys tasks
+#camino_staker_key: |  
+#             "<staker_key>"
+
+#camino_staker_crt: |
+#             "<staker_crt>"
+
+#camino_signer_key: |
+#             "<signer_key>"

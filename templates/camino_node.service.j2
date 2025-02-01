@@ -1,0 +1,16 @@
+[Unit]
+Description=Camino-Node Validator
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User={{camino_user}}
+Group={{camino_group}}
+WorkingDirectory={{camino_node_dir}}
+ExecStart={{camino_node_bin}} --config-file={{camino_config_file}}
+LimitNOFILE=32768
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,38 @@
+- name: Ensure Camino user directory exists
+  ansible.builtin.file:
+    path: "/{{ camino_user }}/.camino"
+    state: directory
+    owner: "{{ camino_user }}"
+    group: "{{ camino_user }}"
+    mode: '0755'
+
+- name: Place signer.key
+  ansible.builtin.copy:
+    content: "{{ camino_signer_key }}"
+    dest: "/{{ camino_user }}/.camino/signer.key"
+    owner: "{{ camino_user }}"
+    group: "{{ camino_user }}"
+    mode: '0600'
+    backup: true
+  notify: restart camino-node
+
+- name: Place staker.crt
+  ansible.builtin.copy:
+    content: "{{ camino_staker_crt }}"
+    dest: "/{{ camino_user }}/.camino/staker.crt"
+    owner: "{{ camino_user }}"
+    group: "{{ camino_user }}"
+    mode: '0600'
+    backup: true
+  notify: restart camino-node
+
+- name: Place staker.key
+  ansible.builtin.copy:
+    content: "{{ camino_staker_key }}"
+    dest: "/{{ camino_user }}/.camino/staker.key"
+    owner: "{{ camino_user }}"
+    group: "{{ camino_user }}"
+    mode: '0600'
+    backup: true
+  notify: restart camino-node
+  

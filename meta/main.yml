@@ -1,0 +1,20 @@
+---
+# Meta file 
+galaxy_info:
+  author: Leon Klostermann
+  description: Ansible role to install and configure a Camino Node
+  company: lfk.codes
+  license: MIT
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+
+dependencies: []

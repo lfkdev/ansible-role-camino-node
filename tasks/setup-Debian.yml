@@ -1,0 +1,87 @@
+- name: Add group camino to system
+  ansible.builtin.group:
+    name: "{{ camino_group }}"
+
+- name: Add user camino to system
+  ansible.builtin.user:
+    name: "{{ camino_user }}"
+
+- name: Create Camino node directory
+  ansible.builtin.file:
+    path: "{{ camino_node_dir }}"
+    state: directory
+    owner: "{{ camino_user }}"
+    group: "{{ camino_group }}"
+    mode: '0755'
+
+- name: Create Camino node configuration directory
+  ansible.builtin.file:
+    path: "{{ camino_config_dir }}"
+    state: directory
+    owner: "{{ camino_user }}"
+    group: "{{ camino_group }}"
+    mode: '0755'
+
+- name: Set release endpoint
+  set_fact:
+    release_endpoint: >-
+      {{ 'tags/' + camino_version if (camino_version is defined and camino_version | length > 0)
+         else 'latest' }}
+
+- name: Get release info from GitHub API
+  ansible.builtin.uri:
+    url: "{{ github_api_url }}/{{ release_endpoint }}"
+    return_content: yes
+  register: github_api_response
+
+- name: Set download URL
+  set_fact:
+    download_url: "{{ github_api_response.json.assets[0].browser_download_url }}"
+
+- name: Download Camino Node tarball
+  ansible.builtin.get_url:
+    url: "{{ download_url }}"
+    dest: "/tmp/{{ item }}"
+  loop: "{{ github_api_response.json.assets | map(attribute='name') | list }}"
+  notify: restart camino-node
+
+- name: Extract Camino Node
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ item }}"
+    dest: "{{ camino_node_dir }}"
+    remote_src: yes
+    extra_opts: ['--strip-components=1']
+    creates: "{{ camino_node_dir }}/caminogo"
+  loop: "{{ github_api_response.json.assets | map(attribute='name') | list }}"
+
+- name: Set permissions for Node binary
+  ansible.builtin.file:
+    path: "{{ camino_node_bin }}"
+    state: file
+    owner: "{{ camino_user }}"
+    group: "{{ camino_group }}"
+    mode: '0755'
+
+- name: Templating systemd service
+  ansible.builtin.template:
+    src: "camino_node.service.j2"
+    dest: "/etc/systemd/system/camino_node.service"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart camino-node
+
+- name: Templating node.json
+  ansible.builtin.template:
+    src: "node.json.j2"
+    dest: "{{ camino_config_file }}"
+    owner: "{{ camino_user }}"
+    group: "{{ camino_group }}"
+    mode: '0644'
+  notify: restart camino-node
+
+- name: Enable service
+  ansible.builtin.systemd:
+    name: camino_node
+    enabled: yes
+    daemon_reload: yes

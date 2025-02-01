@@ -1,0 +1,14 @@
+{
+  "public-ip": "{{ ansible_default_ipv4.address }}",
+  "http-host": "{{ camino_node_http_host }}",
+  "network-id": "{{ camino_node_network_id }}",
+{% if camin_admin_api_secret != "" %}
+  "api-admin-enabled-secret": "{{ camin_admin_api_secret }}",
+{% endif %}
+  "log-level": "info",
+  "log-display-level": "info",
+  "log-rotater-compress-enabled": "true",
+  "log-rotater-max-size": 32,
+  "log-rotater-max-files": 20,
+  "log-rotater-max-age": "60"
+}
