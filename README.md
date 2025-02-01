@@ -1,4 +1,4 @@
-# lfkdev.camino_node
+# Ansible Role: Camino-Node
 
 An Ansible Role that installs and configures Camino Node on Linux servers.
 
