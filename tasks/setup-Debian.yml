@@ -1,3 +1,4 @@
+---
 - name: Add group camino to system
   ansible.builtin.group:
     name: "{{ camino_group }}"
@@ -25,8 +26,11 @@
 - name: Set release endpoint
   set_fact:
     release_endpoint: >-
-      {{ 'tags/' + camino_version if (camino_version is defined and camino_version | length > 0)
-         else 'latest' }}
+      {%- if camino_version is defined and camino_version|length > 0 %}
+      tags/{{ camino_version }}
+      {%- else %}
+      latest
+      {%- endif %}
 
 - name: Get release info from GitHub API
   ansible.builtin.uri:
@@ -36,7 +40,7 @@
 
 - name: Set download URL
   set_fact:
-    download_url: "{{ github_api_response.json.assets[0].browser_download_url }}"
+    download_url: "{{github_api_response.json.assets[0].browser_download_url}}"
 
 - name: Download Camino Node tarball
   ansible.builtin.get_url:
