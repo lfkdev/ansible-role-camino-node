@@ -1,6 +1,15 @@
+
 - name: Ensure Camino user directory exists
   ansible.builtin.file:
-    path: "/{{ camino_user }}/.camino"
+    path: "{{ camino_data_dir }}/.camino"
+    state: directory
+    owner: "{{ camino_user }}"
+    group: "{{ camino_user }}"
+    mode: '0755'
+
+- name: Ensure .camino/staking directory exists
+  ansible.builtin.file:
+    path: "{{ camino_data_dir }}/.camino/staking"
     state: directory
     owner: "{{ camino_user }}"
     group: "{{ camino_user }}"
@@ -9,7 +18,7 @@
 - name: Place signer.key
   ansible.builtin.copy:
     content: "{{ camino_signer_key }}"
-    dest: "/{{ camino_user }}/.camino/signer.key"
+    dest: "{{ camino_data_dir }}/.camino/staking/signer.key"
     owner: "{{ camino_user }}"
     group: "{{ camino_user }}"
     mode: '0600'
@@ -19,7 +28,7 @@
 - name: Place staker.crt
   ansible.builtin.copy:
     content: "{{ camino_staker_crt }}"
-    dest: "/{{ camino_user }}/.camino/staker.crt"
+    dest: "{{ camino_data_dir }}/.camino/staking/staker.crt"
     owner: "{{ camino_user }}"
     group: "{{ camino_user }}"
     mode: '0600'
@@ -29,10 +38,9 @@
 - name: Place staker.key
   ansible.builtin.copy:
     content: "{{ camino_staker_key }}"
-    dest: "/{{ camino_user }}/.camino/staker.key"
+    dest: "{{ camino_data_dir }}/.camino/staking/staker.key"
     owner: "{{ camino_user }}"
     group: "{{ camino_user }}"
     mode: '0600'
     backup: true
   notify: restart camino-node
-  

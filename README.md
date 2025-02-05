@@ -49,12 +49,12 @@ camino_version: ""
 If not set, the role will fetch the latest release. Otherwise, specify the desired version (e.g., `"v1.1.0"`).
 
 ```yaml
-camino_user: "root"
+camino_user: "camino"
 ```
 The system user under which the Camino Node runs.
 
 ```yaml
-camino_group: "root"
+camino_group: "camino"
 ```
 The system group under which the Camino Node runs.
 

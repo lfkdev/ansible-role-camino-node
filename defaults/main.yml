@@ -1,16 +1,40 @@
 ---
+# General node settings
+
+# Download
 github_api_url: "https://api.github.com/repos/chain4travel/caminogo/releases"
 camino_node_dir: "/opt/camino-node"
 camino_node_bin: "{{camino_node_dir}}/caminogo"
 camino_config_dir: "/etc/camino-node/configs"
 camino_config_file: "{{camino_config_dir}}/node.json"
-camino_node_http_host: "127.0.0.1"
-camino_node_network_id: "columbus"
 camino_version: "" # if not set 'latest' release will be used
-camino_user: "root"
-camino_group: "root"
+camino_user: "camino"
+camino_group: "camino"
 
-camin_admin_api_secret: "" # settings this to anything will enable the admin endpoint, otherwise disabled
+# Network
+camino_node_http_host: "127.0.0.1"
+camino_node_http_port: 9650
+camino_node_network_id: "columbus"
+
+# API settings (leave empty to disable admin API)
+camin_admin_api_secret: ""
+
+# Data storage
+camino_data_dir: "/home/{{ camino_user }}/.caminogo"
+camino_db_type: "leveldb"
+
+# Logging
+camino_log_level: "info" # {verbo, debug, trace, info, warn, error, fatal, off}
+camino_log_rotater_max_size: 32 # MB
+
+# Staking
+camino_staking_enabled: true
+camino_staking_port: 9651
+
+# Transaction fee and uptime metrics
+camino_tx_fee: 1000000
+camino_uptime_metric_freq: "30s"
+camino_uptime_requirement: 0.8
 
 # if set, role will include custom-keys tasks
 #camino_staker_key: |  

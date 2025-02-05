@@ -1,14 +1,18 @@
 {
   "public-ip": "{{ ansible_default_ipv4.address }}",
   "http-host": "{{ camino_node_http_host }}",
+  "http-port": {{ camino_node_http_port | default(9650) }},
   "network-id": "{{ camino_node_network_id }}",
 {% if camin_admin_api_secret != "" %}
   "api-admin-enabled-secret": "{{ camin_admin_api_secret }}",
 {% endif %}
-  "log-level": "info",
-  "log-display-level": "info",
-  "log-rotater-compress-enabled": "true",
-  "log-rotater-max-size": 32,
-  "log-rotater-max-files": 20,
-  "log-rotater-max-age": "60"
+  "data-dir": "{{ camino_data_dir | default('/home/' ~ camino_user ~ '/.caminogo') }}",
+  "db-type": "{{ camino_db_type | default('leveldb') }}",
+  "log-level": "{{ camino_log_level | default('info') }}",
+  "log-rotater-max-size": {{ camino_log_rotater_max_size | default(32) }},
+  "staking-enabled": {{ camino_staking_enabled | default(true) | lower }},
+  "staking-port": {{ camino_staking_port | default(9651) }},
+  "tx-fee": {{ camino_tx_fee | default(1000000) }},
+  "uptime-metric-freq": "{{ camino_uptime_metric_freq | default('30s') }}",
+  "uptime-requirement": {{ camino_uptime_requirement | default(0.8) }}
 }
