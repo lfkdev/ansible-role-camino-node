@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+
+  roles:
+    - role: lfkdev.camino_node
+
+  post_tasks:
+    - name: Check if camino_node service is active
+      ansible.builtin.systemd:
+        name: camino_node.service
+        state: started
