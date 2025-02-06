@@ -1,5 +1,7 @@
 # Ansible Role: Camino-Node
 
+[![CI](https://github.com/lfkdev/ansible-role-camino-node/actions/workflows/ci.yml/badge.svg)](https://github.com/lfkdev/ansible-role-camino-node/actions/workflows/ci.yml)
+
 An Ansible Role that installs and configures Camino Node on Linux servers.
 
 ### Requirements
@@ -64,7 +66,7 @@ camin_admin_api_secret: ""
 If set to any value, the admin API endpoint will be enabled; otherwise, it remains disabled.
 
 For more infos visit [docs](https://docs.camino.network/camino-node/configuration/)
- 
+
 ### Node Keys
 Uncomment the following variables to include tasks for custom keys:
 
