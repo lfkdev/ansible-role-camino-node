@@ -35,7 +35,7 @@
 - name: Get release info from GitHub API
   ansible.builtin.uri:
     url: "{{ github_api_url }}/{{ release_endpoint }}"
-    return_content: yes
+    return_content: true
   register: github_api_response
 
 - name: Set download URL
@@ -53,7 +53,7 @@
   ansible.builtin.unarchive:
     src: "/tmp/{{ item }}"
     dest: "{{ camino_node_dir }}"
-    remote_src: yes
+    remote_src: true
     extra_opts: ['--strip-components=1']
     creates: "{{ camino_node_dir }}/caminogo"
   loop: "{{ github_api_response.json.assets | map(attribute='name') | list }}"
@@ -87,5 +87,5 @@
 - name: Enable service
   ansible.builtin.systemd:
     name: camino_node
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true

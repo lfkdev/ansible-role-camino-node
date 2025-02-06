@@ -7,7 +7,7 @@ camino_node_dir: "/opt/camino-node"
 camino_node_bin: "{{camino_node_dir}}/caminogo"
 camino_config_dir: "/etc/camino-node/configs"
 camino_config_file: "{{camino_config_dir}}/node.json"
-camino_version: "" # if not set 'latest' release will be used
+camino_version: ""   # if not set 'latest' release will be used
 camino_user: "camino"
 camino_group: "camino"
 
@@ -24,8 +24,8 @@ camino_data_dir: "/home/{{ camino_user }}/.caminogo"
 camino_db_type: "leveldb"
 
 # Logging
-camino_log_level: "info" # {verbo, debug, trace, info, warn, error, fatal, off}
-camino_log_rotater_max_size: 32 # MB
+camino_log_level: "info"   # verbo, debug, trace, info, warn, error, fatal, off
+camino_log_rotater_max_size: 32  # MB
 
 # Staking
 camino_staking_enabled: true
@@ -37,7 +37,7 @@ camino_uptime_metric_freq: "30s"
 camino_uptime_requirement: 0.8
 
 # if set, role will include custom-keys tasks
-#camino_staker_key: |  
+#camino_staker_key: |
 #             "<staker_key>"
 
 #camino_staker_crt: |

@@ -3,5 +3,5 @@
 - name: restart camino-node
   ansible.builtin.systemd:
     name: camino_node
-    daemon_reload: yes
+    daemon_reload: true
     state: restarted

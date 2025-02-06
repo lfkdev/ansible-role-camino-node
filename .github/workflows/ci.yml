@@ -1,3 +1,4 @@
+---
 name: Molecule Test
 
 on:
@@ -11,17 +12,18 @@ on:
 
 defaults:
   run:
-    working-directory: lfkdev.camino_node
+    working-directory: 'lfkdev.camino_node'
 
 jobs:
-  test:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          path: lfkdev.camino_node
+          path: 'lfkdev.camino_node'
 
       - name: Set up Python 3
         uses: actions/setup-python@v5
@@ -45,12 +47,12 @@ jobs:
           - debian12
 
     steps:
-      - name: Check out the codebase.
+      - name: Check out the codebase
         uses: actions/checkout@v4
         with:
-          path: lfkdev.camino_node
+          path: 'lfkdev.camino_node'
 
-      - name: Set up Python 3.
+      - name: Set up Python 3
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
@@ -58,7 +60,7 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install ansible molecule molecule-plugins[docker] docker
 
-      - name: Run Molecule tests.
+      - name: Run Molecule tests
         run: molecule test
         env:
           PY_COLORS: '1'

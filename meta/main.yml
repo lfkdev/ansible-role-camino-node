@@ -1,6 +1,8 @@
 ---
-# Meta file 
+# Meta file
 galaxy_info:
+  role_name: camino_node
+  namespace: lfkdev
   author: Leon Klostermann
   description: Ansible role to install and configure a Camino Node
   company: lfk.codes
