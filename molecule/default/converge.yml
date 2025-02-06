@@ -3,7 +3,7 @@
   hosts: all
 
   roles:
-    - role: ../../lfkdev.camin_node
+    - role: ../../../lfkdev.camino_node
 
   post_tasks:
     - name: Check if camino_node service is active
