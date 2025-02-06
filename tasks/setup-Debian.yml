@@ -26,11 +26,8 @@
 - name: Set release endpoint
   set_fact:
     release_endpoint: >-
-      {%- if camino_version is defined and camino_version|length > 0 %}
-      tags/{{ camino_version }}
-      {%- else %}
-      latest
-      {%- endif %}
+      {{ 'tags/' + camino_version if (camino_version is defined and camino_version | length > 0)
+         else 'latest' }}
 
 - name: Get release info from GitHub API
   ansible.builtin.uri:
