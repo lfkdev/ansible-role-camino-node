@@ -1,7 +1,7 @@
 ---
-name: Molecule Test
+name: Molecule / Lint
 
-on:
+'on':
   push:
     branches:
       - main
