@@ -10,4 +10,3 @@
       ansible.builtin.systemd:
         name: camino_node.service
         state: started
-
