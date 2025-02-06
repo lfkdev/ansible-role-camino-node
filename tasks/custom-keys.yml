@@ -1,4 +1,4 @@
-
+---
 - name: Ensure Camino user directory exists
   ansible.builtin.file:
     path: "{{ camino_data_dir }}/.camino"
