@@ -10,3 +10,10 @@
       ansible.builtin.systemd:
         name: camino_node.service
         state: started
+
+    - name: Check camino_node service status
+      command: systemctl status camino_node
+      register: camino_status
+
+    - debug:
+        var: camino_status.stdout
